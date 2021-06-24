@@ -331,7 +331,9 @@ const maxBet = () => {
            {baldata.betHistory.map((value, index) => {
         return(
             <tr>
-              <th className="betid">{value.betID}</th>
+              <th 
+              style={{textAlign: 'center'}}
+              className="betid">{value.betID}</th>
               <td>{value.betTime}</td>
               <td>{value.betLucky === true ? (
               <p><b className="text-success">Win</b></p> ) : (
