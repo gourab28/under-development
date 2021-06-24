@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <link rel="icon" type="image/png" href="/assets/img/rocket-96x96.png" sizes="96x96">
+    <link href="/assets/css/toolkit.css" rel="stylesheet">
+    <link href="/assets/css/application.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/4.0.2/echarts.min.js" integrity="sha256-3fQr1932iciZSxPewKZzhvvW40KNr0aQ2mfEQhaxKI4=" crossorigin="anonymous"></script>
+    <script type="text/javascript">var userId = '7f3c-b317-a858', userPass = 'zB93XRdioLvsW5', maxwin = 20000000000, savedGame = 32440, depositAddress = 'GAMEGWRC4XNPUWIKP5R4XR2JYD3PFTAC24HDMTFTZON23TKNUV72EP7N';</script>
+	<script type="text/javascript">
+		(function() {
+	        var host = 'hodldice.com';
+	        if (window.location.host == host && window.location.protocol != "https:") {
+	          window.location.href = "https:" + window.location.href.substring(window.location.protocol.length);
+	          return;
+	        }
+	    })();
+	</script>
+</head>
+<body>
+<div class="growl" id="app-growl"></div>
+<div>
+	<div class="row  mtl mbs">
+    <div class="col-sm-9">
+        <div class="panel panel-default mbn">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-sm-7">
+                        <div class="row">
+                            <div class="col-sm-7">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">Less Than</span><input type="tel" class="form-control text-center" value="" onkeyup="updateGame($(this).val());" id="lessthan">
+                                        <div class="input-group-btn">
+                                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Options <span class="caret"></span></button>
+                                            <ul class="dropdown-menu dropdown-menu-right bet" id="games">
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-5">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">Max Bet</span><b><input disabled="disabled" class="form-control text-right" value="" id="maxbet"></b>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group  mbs">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">Odds</span><b><input disabled="disabled" class="form-control text-center" value="" id="odds"></b><span class="input-group-addon">%</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group  mbs">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">Multiplier</span><b><input disabled="disabled" class="form-control text-center" value="" id="multiplier"></b><span class="input-group-addon">x</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-5">
+                        <div class="row">
+                            <div class="col-sm-7">
+                                <div class="form-group has-success">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">Bet</span><input type="tel" class="form-control text-right" value="0.00000000" id="amount">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-5">
+                            	<a href="javascript:void(0)" onclick="bet()" class="btn btn-success btn-block">Roll &nbsp;<b class="text-info">L</b></a>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="btn-group btn-group-justified btn-group-halves">
+                                    <a href="javascript:void(0)" onclick="min();" class="btn btn-primary">MIN &nbsp;<b class="text-info">A</b></a>
+                                    <a href="javascript:void(0)" onclick="half_bet();" class="btn btn-primary">/2 &nbsp;<b class="text-info">S</b></a>
+                                    <a href="javascript:void(0)" onclick="double_bet();" class="btn btn-primary">X2 &nbsp;<b class="text-info">D</b></a>
+                                    <a href="javascript:void(0)" onclick="max();" class="btn btn-primary">MAX &nbsp;<b class="text-info">F</b></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-3">
+        <div class="panel panel-default mbn">
+            <div class="panel-body pbm">
+                <ul class="list-group mbs">
+                    <li class="list-group-item pts pbs">
+                        <h4 class="man"><span class="pull-left">$HODL:</span> <span class="pull-right" id="balance">0.00000000</span></h4>
+                        <div class="clearfix"></div>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+                <div class="btn-group btn-group-justified btn-group-halves mbm mtm ptx">
+                    <a class="btn btn-primary-outline">Deposit</a>
+                    <a class="btn btn-success-outline">Withdraw</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-3">
+        <ul class="list-group mbs">
+            <li class="list-group-item"><b>Bets:</b> <span class="pull-right text-success"><b id="bets">0</b></span></li>
+        </ul>
+    </div>
+    <div class="col-sm-3">
+        <ul class="list-group mbs">
+            <li class="list-group-item"><b>Win/Lose:</b> <span class="pull-right"><b id="win" class="text-success">0</b><b> / </b><b id="lose" class="text-danger">0</b></span></li>
+        </ul>
+    </div>
+    <div class="col-sm-3">
+        <ul class="list-group mbs">
+            <li class="list-group-item"><b>Wagered:</b> <span class="pull-right text-success"><b id="wagered">0.00000000</b></span></li>
+        </ul>
+    </div>
+    <div class="col-sm-3">
+        <ul class="list-group mbs">
+            <li class="list-group-item"><b>Profit:</b> <span class="pull-right text-success" id="profit"><b>0.00000000</b></span></li>
+        </ul>
+    </div>
+</div>
+<div class="panel panel-default">
+    <table class="table table-bordered table-condensed text-center">
+        <thead>
+            <tr>
+                <th class="active text-center"><b>BET ID</b></th>
+                <th class="active text-center"><b>When</b></th>
+                <th class="active col-sm-1 text-center"><b>Lucky</b></th>
+                <th class="active col-sm-1 text-center"><b>Target</b></th>
+                <th class="active col-sm-2 text-center"><b>Bet</b></th>
+                <th class="active col-sm-1 text-center"><b>Multiplier</b></th>
+                <th class="active col-sm-2 text-center"><b>Profit</b></th>
+            </tr>
+        </thead>
+        <tbody id="history">
+        				<tr id="nobets"><td colspan="7"><div class="row"><div class="col-sm-6 col-sm-offset-3 text-center pal"><h3><i class="fa fa-server"></i></h3><h4 class="mbs">No Bets Found</h4><b><a>Click here to deposit $HODL and start playing</a></b><p></p></div></div></td></tr>
+                    </tbody>
+    </table>
+</div>
+		
+	</div>
+<script src="/assets/js/jquery.min.js"></script>
+<script src="/assets/js/toolkit.js"></script>
+<script src="/assets/js/jquery.timeago.js"></script>
+<script src="/assets/js/stellar-sdk.min.js"></script>
+<script src="/assets/js/stellar-base.min.js"></script>
+<script src="/assets/js/app.js"></script>
+<script src="/assets/js/clipboard.min.js"></script>
+<script src="/assets/js/bootstrap-table.js"></script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+.no_line {
+  text-decoration: none;
+  margin-right: 3px;
+}
+.new_brand {
+  position: absolute;
+  float: left;
+  font-weight: bold;
+  top: 10px;
+}
+td > a {
+  text-decoration: none;
+}
+.pull-right {
+  float: right !important;
+}
+
+@media (max-width: 767px) {
+  .hidden-xs {
+    display: none !important;
+  }
+}
+.wordbrk {
+  word-break: break-all;
+}
+td {
+  font-weight: bold;
+}
+.betid {
+  text-overflow: ellipsis;
+}
+.oppv li:hover {
+  background: grey;
+  color: white;
+}
+.clipb  {
+  background : #0d47a1;
+  color: #fff;
+}
+.user {
+  margin-left: 3px;
+}
