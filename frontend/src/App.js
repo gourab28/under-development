@@ -37,7 +37,7 @@ function App() {
       <Router>
         <Navbar />
         <Switch>
-            <Route exact path="/" component={Home} />
+            <Route exact path="/" component={Test} />
             <Route path="/login" component={Login} />
             <Route path="/register" component={Register} />
             <Route path="/logout" component={Logout} />

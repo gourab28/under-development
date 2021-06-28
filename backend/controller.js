@@ -3,7 +3,7 @@ const { User } = require("./models/userModel");
 const { generateAddress } = require("./utils/balanceUtils");
 const { getBalance } = require("./utils/balanceUtils");
 const { makeBet } = require("./utils/bettingUtils");
-
+var gen = require("random-seed");
 // creates new User with function generated password.
 async function createUser(req, res) {
     // generating new random password.
@@ -64,6 +64,32 @@ async function betRequest(req, res) {
         res.send("User not found.");
     }
 }
+// for update balance gourab
+async function authBal(req, res) {
+
+    const { userID, password } = req.body;
+
+    const user = await User.findById(userID);
+    const balance = await getBalance(user.account_address);
+    
+    const newBal = await user.save();
+    if (user) {
+        if (user.password === password) {
+            res.status(200);
+            res.json({
+                userID: user._id,
+                account_address: user.account_address,
+                balance: balance,
+            });
+        } else {
+            res.status(400);
+            res.send("Invalid UserID and password.");
+        }
+    } else {
+        res.status(404);
+        res.send("User not found");
+    }
+}
 
 // for authenticating user and logging in.
 async function authUser(req, res) {
@@ -89,6 +115,29 @@ async function authUser(req, res) {
     } else {
         res.status(404);
         res.send("User not found");
+    }
+}
+// Verify Bet
+async function verifyBet(req, res) {
+
+    const { seedPhrase } = req.body;
+
+
+    if (seedPhrase) {
+        // generating random value generator with seed value.
+        var rand = new gen(seedPhrase);
+
+        // generating diceValue.
+        const diceValue = rand(65536);
+
+        res.status(200);
+        res.json({
+            seedPhrase: seedPhrase,
+            diceValue: diceValue,
+        });
+    } else {
+        res.status(400);
+        res.json({ error: "SeedPhrase required for checking bet." });
     }
 }
 
@@ -154,10 +203,36 @@ async function withdrawRequest(req, res) {
         });
     }
 }
+// for getting the total stats
+async function getStats(req, res) {
+    const users = await User.find({}, { new_history: 1 });
+    let totalBets = 0;
+    let totalProfit = 0;
+    let totalWagered = 0;
+
+    for (let user of users) {
+        totalBets += user.new_history.length;
+        for (let bet of user.new_history) {
+            totalProfit += bet.profit;
+            totalWagered += bet.betAmount;
+        }
+    }
+
+    res.status(200);
+    res.json({
+        totalBets: totalBets,
+        totalWagered: totalWagered,
+        totalProfit: totalProfit,
+    });
+}
+
 
 module.exports = {
     createUser,
     betRequest,
     authUser,
     withdrawRequest,
+    authBal,
+    verifyBet,
+    getStats
 };

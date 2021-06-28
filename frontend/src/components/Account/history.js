@@ -1,7 +1,7 @@
 import React, {Fragment, useState, useEffect} from 'react';
 import {Link} from 'react-router-dom';
 import axios from 'axios'; 
-
+import Tippy from '@tippy.js/react';
 export default function Login (props) {
     // User Information
   let Udata = localStorage.getItem("user");
@@ -16,6 +16,15 @@ export default function Login (props) {
         .then(response => setBaldata(response.data));
     // console.log(baldata);
   },1000);
+  
+  function getNumber (num) {
+    
+    var units = ["M","B","T","Q"]
+    var unit = Math.floor((num / 1.0e+1).toFixed(0).toString().length)
+    var r = unit%3
+    var x =  Math.abs(Number(num))/Number('1.0e+'+(unit-r)).toFixed(2)
+    return x.toFixed(2)+ ' ' + units[Math.floor(unit / 3) - 2]
+}
   if (baldata) {
   return (
     <Fragment>
@@ -48,13 +57,17 @@ export default function Login (props) {
            {baldata.betHistory.map((value, index) => {
         return(
             <tr>
-              <th className="betid">{value.betID}</th>
+              <th className="betid">{value.betID.substring(20)}</th>
               <td>{value.betTime}</td>
               <td>{value.betLucky === true ? (
               <p><b className="text-success">Win</b></p> ) : (
                 <p><b className="text-danger"> Lose </b></p>
                      )}</td>
-              <td>{value.betAmount}</td>
+              <td>
+             <Tippy content={value.betAmount}>
+              <a>{getNumber(value.betAmount).replace("0.00 undefined", (value.betAmount))}</a>
+             </Tippy>
+              </td>
               <td>{value.multiplier}</td>
             </tr>
              )

@@ -1,13 +1,65 @@
-import React, {Fragment} from 'react';
+import React, {Fragment, useState, useEffect} from 'react';
+import axios from 'axios';
+import millify from "millify";
 
 export default function Stats (props) {
+ 
+ const [stats, setStats] = useState([]);
+ const [total, setTotal] = useState([]);
+ const [isLoaded, setIsLoaded] = useState(false);
+  
+ useEffect(() => {
+    sendGetRequest();
+  },[]);
+  
+ const sendGetRequest = async () => {
+    try {
+        const resp = await axios.get('http://localhost:5000/api/stats');
+        setIsLoaded(true);
+        setStats(resp.data);
+        //setTotal(resp.totalWagered);
+    } catch (err) {
+        // Handle Error Here
+        console.error(err);
+    }
+};
+// Number Counting
+  function getNumber (num) {
+    
+    var units = ["K","M","B","T","Q"]
+    var unit = Math.floor((num / 1.0e+1).toFixed(0).toString().length)
+    var r = unit%3
+    var x =  Math.abs(Number(num))/Number('1.0e+'+(unit-r)).toFixed(2)
+    return x.toFixed(2)+ ' ' + units[Math.floor(unit / 3) - 2]
+  }
+  
+  //Remove Commmas
+ // let TotalBet = stats.totalBets;
+ const Total = [stats.totalWagered];
+ 
+ const numbers = [2, 4, 6];
+
+const sum = Total.reduce(function summarize(sum, number) {
+  const updatedSum = sum + number;
+  return updatedSum;
+}, 0);
+
+console.log(sum); // 12
+ 
+  if (!isLoaded) {
+    return(
+     <div class="row text-center">
+        <h5>Loading ....</h5>
+      </div>
+      )
+  }
   return (
     <Fragment>
       <div class="panel panel-default mtl mbs">
 	<div class="panel-body">
 		<div class="row">
-			<div class="col-md-4"><div class="panel panel-default text-center mbn"><div class="panel-heading"><strong>Total Bets</strong></div><div class="panel-body"><h3 class="pan man" id="site_bets">6,367,798</h3></div></div></div>
-			<div class="col-md-4"><div class="panel panel-default text-center mbn"><div class="panel-heading"><strong>Wagered</strong></div><div class="panel-body"><h3 class="pan man" id="site_wagered">40,618,826.6514920</h3></div></div></div>
+			<div class="col-md-4"><div class="panel panel-default text-center mbn"><div class="panel-heading"><strong>Total Bets</strong></div><div class="panel-body"><h3 class="pan man">{getNumber(stats.totalBets).replace("NaN undefined", "Loading").replace("undefined", "").replace(".00", "")} </h3></div></div></div>
+			<div class="col-md-4"><div class="panel panel-default text-center mbn"><div class="panel-heading"><strong>Wagered</strong></div><div class="panel-body"><h3 class="pan man" id="site_wagered">{getNumber(40,618,826.6514920)}</h3></div></div></div>
 			<div class="col-md-4"><div class="panel panel-default text-center mbn"><div class="panel-heading"><strong>User's Profit</strong></div><div class="panel-body"><h3 class="pan man" id="site_profit">14,353,157.2748891</h3></div></div></div>
 		</div>
 	</div>
