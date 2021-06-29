@@ -6,7 +6,7 @@ const {
     withdrawRequest,
     authBal,
     verifyBet,
-    getStats
+    getStats,
 } = require("./controller");
 
 // creating a router for the server.

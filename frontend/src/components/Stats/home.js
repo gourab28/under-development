@@ -59,8 +59,8 @@ console.log(sum); // 12
 	<div class="panel-body">
 		<div class="row">
 			<div class="col-md-4"><div class="panel panel-default text-center mbn"><div class="panel-heading"><strong>Total Bets</strong></div><div class="panel-body"><h3 class="pan man">{getNumber(stats.totalBets).replace("NaN undefined", "Loading").replace("undefined", "").replace(".00", "")} </h3></div></div></div>
-			<div class="col-md-4"><div class="panel panel-default text-center mbn"><div class="panel-heading"><strong>Wagered</strong></div><div class="panel-body"><h3 class="pan man" id="site_wagered">{getNumber(40,618,826.6514920)}</h3></div></div></div>
-			<div class="col-md-4"><div class="panel panel-default text-center mbn"><div class="panel-heading"><strong>User's Profit</strong></div><div class="panel-body"><h3 class="pan man" id="site_profit">14,353,157.2748891</h3></div></div></div>
+			<div class="col-md-4"><div class="panel panel-default text-center mbn"><div class="panel-heading"><strong>Wagered</strong></div><div class="panel-body"><h3 class="pan man" id="site_wagered">{millify(606188)}</h3></div></div></div>
+			<div class="col-md-4"><div class="panel panel-default text-center mbn"><div class="panel-heading"><strong>User's Profit</strong></div><div class="panel-body"><h3 class="pan man" id="site_profit">{millify(606188*6)}</h3></div></div></div>
 		</div>
 	</div>
 </div>

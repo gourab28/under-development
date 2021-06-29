@@ -162,9 +162,11 @@ const maxBet = () => {
   //console.log(error)
   
    }
-   
+  
    if (baldata) {
      
+   //console.log(result);
+   
      //Validation
       const betamtVal = () => {
         if(betamt < 0.0000000) {
@@ -340,6 +342,7 @@ const maxBet = () => {
             </thead>
             <tbody id="history">
            {baldata.betHistory.map((value, index) => {
+           
         return(
             <tr>
               <th 

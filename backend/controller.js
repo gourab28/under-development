@@ -95,7 +95,7 @@ async function authBal(req, res) {
 async function authUser(req, res) {
     const { userID, password } = req.body;
     const user = await User.findById(userID);
-
+    
     if (user) {
         if (user.password === password) {
             res.status(200);
@@ -205,7 +205,9 @@ async function withdrawRequest(req, res) {
 }
 // for getting the total stats
 async function getStats(req, res) {
-    const users = await User.find({}, { new_history: 1 });
+
+    const users = await User.find({});
+
     let totalBets = 0;
     let totalProfit = 0;
     let totalWagered = 0;
@@ -213,7 +215,7 @@ async function getStats(req, res) {
     for (let user of users) {
         totalBets += user.new_history.length;
         for (let bet of user.new_history) {
-            totalProfit += bet.profit;
+            totalWagered += bet.profit;
             totalWagered += bet.betAmount;
         }
     }
@@ -234,5 +236,5 @@ module.exports = {
     withdrawRequest,
     authBal,
     verifyBet,
-    getStats
+    getStats,
 };
