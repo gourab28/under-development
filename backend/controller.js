@@ -95,7 +95,7 @@ async function authBal(req, res) {
 async function authUser(req, res) {
     const { userID, password } = req.body;
     const user = await User.findById(userID);
-    
+    const balance = await getBalance(user.account_address);
     if (user) {
         if (user.password === password) {
             res.status(200);
@@ -103,7 +103,7 @@ async function authUser(req, res) {
                 userID: user._id,
                 account_address: user.account_address,
                 password: password,
-                balance: user.balance,
+                balance: balance,
                 withdrawal: user.withdrawal_requests,
                 betHistory: user.new_history,
                 bet_proceeds: user.bet_proceeds,
